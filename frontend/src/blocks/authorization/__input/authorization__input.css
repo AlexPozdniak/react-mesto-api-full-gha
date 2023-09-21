@@ -1,0 +1,16 @@
+.authorization__input {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    height: 30px;
+    width: 358px;
+    border: 0 solid rgb(255, 255, 255);
+    border-bottom-width: 2px;
+    background-color: black;
+    color: white;
+}
+
+.authorization__input:first-of-type {
+    margin-bottom: 30px;
+}

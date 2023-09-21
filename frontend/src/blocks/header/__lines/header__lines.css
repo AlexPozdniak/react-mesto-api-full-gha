@@ -1,0 +1,11 @@
+.header__lines {
+  border-bottom: 1px solid #545454;
+  padding-top: 40px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 469px) and (max-width: 1023px) {
+  .header__lines {
+    max-width: calc(100% - 100px);
+  }
+}

@@ -1,0 +1,18 @@
+.popup__name {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  margin: 0 0 28px;
+  padding: 0;
+  padding-bottom: 5px;
+  font-size: 42px;
+  line-height: 48px;
+}
+
+.popup__name:focus {
+  outline: none;
+}
+
+.popup__name::placeholder {
+  color: #000;
+}

@@ -9,8 +9,8 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 158.160.54.232
 
-Frontend https://...
+Frontend https://alexpoz.nomoredomainsicu.ru
 
-Backend https://...
+Backend https://api.alexpoz.nomoredomainsicu.ru

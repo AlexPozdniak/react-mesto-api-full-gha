@@ -1,0 +1,25 @@
+.elements__icon {
+  width: 22px;
+  height: 19px;
+  border: none;
+  padding: 0;
+  margin-bottom: 3px;
+  background-image: url(../../../images/like-icon.svg);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 1;
+  transition: opacity 0.5s linear;
+  cursor: pointer;
+}
+
+.elements__icon:hover {
+  opacity: 0.5;
+}
+
+/* .elements__icon:active  {
+  fill: #000;
+  opacity: 1;
+} */
+

@@ -1,0 +1,7 @@
+.popup__preview-container {
+  position: relative;
+}
+
+.popup_type_preview-card {
+  background-color: rgba(0, 0, 0, 0.9);
+}

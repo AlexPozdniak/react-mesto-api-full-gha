@@ -1,0 +1,10 @@
+.elements__picture {
+  width: 282px;
+  height: 282px;
+  align-self: flex-start;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  object-fit: cover;
+  cursor: pointer;
+}

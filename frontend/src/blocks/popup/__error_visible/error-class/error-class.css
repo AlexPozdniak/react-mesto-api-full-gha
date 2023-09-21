@@ -1,0 +1,9 @@
+.error-class {
+  color: red;
+  position: absolute;
+  top: 25px;
+  left: 0;
+  line-height: 15px;
+  font-size: 12px;
+  font-weight: 400;
+}

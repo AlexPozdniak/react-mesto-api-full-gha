@@ -111,9 +111,11 @@ function App() {
   }
 
   function handleUpdateAvatar(avatar) {
-      api.setUserAvatar(avatar)
+    const jwt = localStorage.getItem('jwt');
+      api.setUserAvatar(avatar, jwt)
           .then(res => {
-              setCurrentUser(res);
+            console.log('avatar',res)
+              setCurrentUser({...currentUser, avatar: res.avatar});
               closeAllPopups();
           })
           .catch((err) => console.log(err));

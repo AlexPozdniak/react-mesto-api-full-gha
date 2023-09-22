@@ -131,12 +131,12 @@ module.exports.editAvatar = (req, res, next) => {
   const id = req.user._id;
   const { avatar } = req.body;
 
-  userSchema.findByIdAndUpdate(id, avatar, { new: true, runValidators: true })
+  userSchema.findByIdAndUpdate(id, { avatar }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         throw new NotFound('Пользователь по данному _id не найден');
       }
-      return res.send({ ...user, avatar });
+      return res.send({ user });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

@@ -43,11 +43,11 @@ export class Api {
     }).then(this._checkResponse);
   }
 
-  setUserAvatar(data){
+  setUserAvatar(data, token){
     return fetch(`${this.url}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
-        authorization: this.token,
+        authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -61,7 +61,7 @@ export class Api {
     return fetch(`${this.url}/users/me`, {
       method: 'PATCH',
       headers: {
-        authorization: token,
+        authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

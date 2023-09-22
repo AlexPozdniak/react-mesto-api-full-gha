@@ -34,13 +34,16 @@ function App() {
 
     const checkActiveToken = useCallback(() => {
         const jwt = localStorage.getItem('jwt');
+        console.log('jwt',jwt)
         if (jwt) {
             auth
                 .checkToken(jwt)
                 .then((res) => {
+                    console.log('check',res)
                     if (res) {
                         setIsLoggedIn(true);
-                        setEmail(res.data.email);
+                        setEmail(res.email);
+                        setCurrentUser(res)
                         navigate("/", { replace: true });
                     }
                 })
@@ -52,10 +55,12 @@ function App() {
     }, [navigate])
 
   useEffect(() => {
-    api.getData()
+    const jwt = localStorage.getItem('jwt');
+    api.getData(jwt)
         .then(([user, cards])  => {
-            setCards(cards);
-            setCurrentUser(user);
+            console.log('getData',user, cards)
+            setCards(cards.data);
+            setCurrentUser(user.data);
         })
         .catch((err) => console.log(err));
 
@@ -96,7 +101,8 @@ function App() {
   }
 
   function handleUpdateUser(user) {
-      api.patchUserInfo(user)
+    const jwt = localStorage.getItem('jwt');
+      api.patchUserInfo(user, jwt)
           .then(res => {
             setCurrentUser(res);
             closeAllPopups();
@@ -150,12 +156,14 @@ function App() {
     }
 
     function handleLogin(password, email) {
+        console.log(password,email)
         if (!password || !email) {
             return;
         }
         auth
             .authorize(password, email)
             .then((res) => {
+                console.log(res.token)
                 setIsLoggedIn(true);
                 localStorage.setItem('jwt', res.token);
                 setEmail(email);

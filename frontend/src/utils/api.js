@@ -2,8 +2,7 @@ import {API_CONFIG} from "./constants";
 
 export class Api {
   constructor(config) {
-    this.url = config.url + config.group;
-    this.token = config.token;
+    this.url = config.url;
   }
 
   _checkResponse(res) {
@@ -13,8 +12,8 @@ export class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getData() {
-    return Promise.all([this._getUser(), this._getInitialCards()]);
+  getData(token) {
+    return Promise.all([this._getUser(token), this._getInitialCards()]);
   }
   _getInitialCards(){
     return fetch(`${this.url}/cards`, {
@@ -36,10 +35,10 @@ export class Api {
       .then(this._checkResponse);
   }
 
-  _getUser(){
+  _getUser(token){
     return fetch(`${this.url}/users/me`, {
       headers: {
-        authorization: this.token,
+        authorization: token,
       }
     }).then(this._checkResponse);
   }
@@ -56,11 +55,13 @@ export class Api {
       }),
     }).then(this._checkResponse);
   }
-  patchUserInfo(data){
+  patchUserInfo(data,token){
+    console.log('infotoken', token)
+    console.log('infotoken', data)
     return fetch(`${this.url}/users/me`, {
       method: 'PATCH',
       headers: {
-        authorization: this.token,
+        authorization: token,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

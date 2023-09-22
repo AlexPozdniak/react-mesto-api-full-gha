@@ -16,6 +16,7 @@ module.exports = (req, res, next) => {
 
   try {
     payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'super-secret-key');
+    console.log(payload);
   } catch (err) {
     return next(new Unauthorized('Необходима авторизация!'));
   }

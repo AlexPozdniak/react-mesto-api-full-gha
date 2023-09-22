@@ -34,12 +34,10 @@ function App() {
 
     const checkActiveToken = useCallback(() => {
         const jwt = localStorage.getItem('jwt');
-        console.log('jwt',jwt)
         if (jwt) {
             auth
                 .checkToken(jwt)
                 .then((res) => {
-                    console.log('check',res)
                     if (res) {
                         setIsLoggedIn(true);
                         setEmail(res.email);
@@ -59,8 +57,8 @@ function App() {
     api.getData(jwt)
         .then(([user, cards])  => {
             console.log('getData',user, cards)
-            setCards(cards.data);
-            setCurrentUser(user.data);
+            setCards(cards);
+            setCurrentUser(user);
         })
         .catch((err) => console.log(err));
 
@@ -93,8 +91,10 @@ function App() {
   }
 
   function handleCardLike(cardId, isLiked) {
-      api.changeLikeCardStatus(cardId, isLiked)
+    const jwt = localStorage.getItem('jwt');
+      api.changeLikeCardStatus(cardId, isLiked, jwt)
           .then(newCard => {
+            console.log(newCard, 'newcard', cardId)
             setCards(state => state.map(stateCard => stateCard._id === cardId ? newCard : stateCard));
           })
           .catch((err) => console.log(err));
@@ -115,14 +115,15 @@ function App() {
       api.setUserAvatar(avatar, jwt)
           .then(res => {
             console.log('avatar',res)
-              setCurrentUser({...currentUser, avatar: res.avatar});
+              setCurrentUser({...currentUser, avatar: res.user.avatar});
               closeAllPopups();
           })
           .catch((err) => console.log(err));
   }
 
   function handleAddCard(data) {
-      api.createCard(data)
+    const jwt = localStorage.getItem('jwt');
+      api.createCard(data, jwt)
           .then(newCard => {
               setCards([newCard, ...cards]);
               closeAllPopups();
@@ -158,14 +159,12 @@ function App() {
     }
 
     function handleLogin(password, email) {
-        console.log(password,email)
         if (!password || !email) {
             return;
         }
         auth
             .authorize(password, email)
             .then((res) => {
-                console.log(res.token)
                 setIsLoggedIn(true);
                 localStorage.setItem('jwt', res.token);
                 setEmail(email);

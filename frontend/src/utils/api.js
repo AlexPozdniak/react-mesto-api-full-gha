@@ -13,23 +13,23 @@ export class Api {
   }
 
   getData(token) {
-    return Promise.all([this._getUser(token), this._getInitialCards()]);
+    return Promise.all([this._getUser(token), this._getInitialCards(token)]);
   }
-  _getInitialCards(){
+  _getInitialCards(token){
     return fetch(`${this.url}/cards`, {
       headers: {
-        authorization: this.token,
+        authorization: `Bearer ${token}`,
       }
     })
       .then(this._checkResponse);
   }
-  createCard( { name, link } ){
+  createCard( { name, link }, token ){
     return fetch(`${this.url}/cards`,{
       method:'POST',
       body: JSON.stringify({name, link}),
       headers: {
         'Content-Type': 'application/json',
-        authorization: this.token,
+        authorization: `Bearer ${token}`,
       }
     })
       .then(this._checkResponse);
@@ -38,7 +38,7 @@ export class Api {
   _getUser(token){
     return fetch(`${this.url}/users/me`, {
       headers: {
-        authorization: token,
+        authorization: `Bearer ${token}`,
       }
     }).then(this._checkResponse);
   }
@@ -56,8 +56,6 @@ export class Api {
     }).then(this._checkResponse);
   }
   patchUserInfo(data,token){
-    console.log('infotoken', token)
-    console.log('infotoken', data)
     return fetch(`${this.url}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -80,23 +78,23 @@ export class Api {
     }).then(this._checkResponse);
   }
 
-  changeLikeCardStatus(cardId, isLiked) {
-    return isLiked ? this._deleteLike(cardId) : this._putLike(cardId)
+  changeLikeCardStatus(cardId, isLiked, token) {
+    return isLiked ? this._deleteLike(cardId, token) : this._putLike(cardId, token)
   }
 
-  _putLike(cardId){
+  _putLike(cardId, token){
     return fetch(`${this.url}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: {
-        authorization: this.token,
+        authorization: `Bearer ${token}`,
       },
     }).then(this._checkResponse);
   }
-  _deleteLike(cardId){
+  _deleteLike(cardId, token){
     return fetch(`${this.url}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: {
-        authorization: this.token,
+        authorization: `Bearer ${token}`,
       },
     }).then(this._checkResponse);
   }

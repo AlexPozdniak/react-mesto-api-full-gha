@@ -12,7 +12,6 @@ const Unauthorized = require('../errors/unauthorized');
 const BadRequest = require('../errors/badRequest');
 
 module.exports.getAllUsers = (req, res, next) => {
-  console.log('getted');
   userSchema
     .find({})
     .then((users) => {

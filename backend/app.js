@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const router = require('./routes');
 const auth = require('./middlewares/auth');
+const cors = require('./middlewares/cors');
 const defaultErr = require('./errors/defaultErr');
 const NotFound = require('./errors/notFound');
 const { login, addUser } = require('./controllers/users');
@@ -22,6 +23,8 @@ app.use(helmet());
 app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors);
 
 app.use(requestLogger);
 

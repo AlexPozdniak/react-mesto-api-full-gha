@@ -132,7 +132,8 @@ function App() {
   }
 
   function handleDeleteCard(id) {
-      api.deleteCard(id)
+    const jwt = localStorage.getItem('jwt');
+      api.deleteCard(id, jwt)
           .then(() => {
               const newCards = cards.filter(card => card._id !== id);
               setCards(newCards);

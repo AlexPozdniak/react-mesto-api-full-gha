@@ -5,8 +5,10 @@ function Card({ cardData, onCardClick, onCardLike, onCardDelete }) {
     const {_id: currentUserId} = useContext(CurrentUserContext);
 
     const { name, link, likes, _id: cardId } = cardData;
-    const isOwn = cardData.owner._id === currentUserId;
-    const isLiked = cardData.likes.some((el) => el._id === currentUserId);
+    console.log(cardData)
+    console.log(currentUserId)
+    const isOwn = cardData.owner === currentUserId;
+    const isLiked = cardData.likes.some((el) => el === currentUserId);
     const likeButtonClassName = `elements__icon ${
         isLiked ? "elements__icon-active" : ""
     }`;

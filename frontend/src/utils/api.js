@@ -69,11 +69,11 @@ export class Api {
     }).then(this._checkResponse);
   }
 
-  deleteCard(cardId){
+  deleteCard(cardId, token){
     return fetch(`${this.url}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
-        authorization: this.token,
+        authorization: `Bearer ${token}`,
       },
     }).then(this._checkResponse);
   }
